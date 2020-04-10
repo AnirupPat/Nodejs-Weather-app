@@ -284,17 +284,19 @@ console.log('Stopping')
 
 
 const request = require('request')
-const url = 'http://api.weatherstack.com/current?access_key=00fb213314d4f0b73ca9a36944be04c8&query=12.9716%C2%B0%20N,77.5946%C2%B0%20E'
+const url = 'http://api.weatherstack.com/current?access_key=00fb213314d4f0b73ca9a36944be04c8&query=12.9716%C2%B0%20N,77.5946%C2%B0%20E&units=f'
 // request(url, (error, response, body) => {
 //   console.error('error:', error); // Print the error if one occurred
 //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 //   console.log('body:', body); // Print the HTML for the Google homepage.
 // });
 
-request({url: url}, (error, response) => {
-    const data = JSON.parse(response.body)
+request({ url: url, json: true }, (error, response) => {
+    // if we are passing json = true then we dont need to parse this as below
+    // const data = JSON.parse(response.body)
+    const data = response.body
     console.log(data)
     console.log('-----lets look at the current property---------')
-    console.log(data.current)
-  });
+    console.log(data.current.weather_descriptions[0] +'. It is currently ' +data.current.temperature + ' degrees and feels like ' +data.current.feelslike + ' degress')
+});
 
