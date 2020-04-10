@@ -345,14 +345,8 @@ request({ url: geocodeUrl, json: true }, (error, response) => {
 const geocode = require('./utils/geocode')
 geocode('India', (error, response) => {
     console.log('--------mapbox.com callback--------')
-    if(error) {
-        console.log('Unable to reach the map box sevice !')
-    } else if(response.body.features.length === 0) {
-        console.log('Unable to find any result for the request !')
-    } else {
-        console.log('Latitude: '+response.body.features[0].center[1] + ', Longitude: ' +response.body.features[0].center[0])
-        console.log('Location is: '+ response.body.features[0].place_name)
-    }
+    console.log('Error', error)
+    console.log('Data', response)
 })
 
 //
