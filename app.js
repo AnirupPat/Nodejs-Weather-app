@@ -272,3 +272,29 @@ console.log('Stopping')
 
 
 
+// Open weatherstack.com
+// sign up for free and then we will get a API Access key
+// 00fb213314d4f0b73ca9a36944be04c8
+// this is the request that we made:
+// http://api.weatherstack.com/current?
+// access_key=00fb213314d4f0b73ca9a36944be04c8&query=12.9716%C2%B0%20N,77.5946%C2%B0%20E
+
+// for now we will use a single npm module to make http request
+// its called request
+
+
+const request = require('request')
+const url = 'http://api.weatherstack.com/current?access_key=00fb213314d4f0b73ca9a36944be04c8&query=12.9716%C2%B0%20N,77.5946%C2%B0%20E'
+// request(url, (error, response, body) => {
+//   console.error('error:', error); // Print the error if one occurred
+//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//   console.log('body:', body); // Print the HTML for the Google homepage.
+// });
+
+request({url: url}, (error, response) => {
+    const data = JSON.parse(response.body)
+    console.log(data)
+    console.log('-----lets look at the current property---------')
+    console.log(data.current)
+  });
+
