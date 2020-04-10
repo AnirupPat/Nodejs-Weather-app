@@ -296,7 +296,14 @@ request({ url: url, json: true }, (error, response) => {
     // const data = JSON.parse(response.body)
     const data = response.body
     console.log('-----lets look at the current property---------')
-    console.log(data.current.weather_descriptions[0] +'. It is currently ' +data.current.temperature + ' degrees and feels like ' +data.current.feelslike + ' degress')
+    if(error) {
+        console.log('Unable to connect to weather app')
+    } else if(response.body.error) {
+        // break the url and check
+        console.log(response.body.error.info)
+    } else {
+        console.log(data.current.weather_descriptions[0] +'. It is currently ' +data.current.temperature + ' degrees and feels like ' +data.current.feelslike + ' degress')   
+    }
 });
 
 // Geocoding 
@@ -309,11 +316,21 @@ request({ url: url, json: true }, (error, response) => {
 
 // Print the latitude / longitude for India
 
-
+// Los%20Angeles
 const geocodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYW5pcnVwIiwiYSI6ImNrNGw4dTE0YTFvenozbXF4dWNlYmhyeGkifQ.PuThfcK3VVJ_wBFqNjnjyQ&limit=1'
 request({ url: geocodeUrl, json: true }, (error, response) => {
     console.log('--------mapbox.com--------')
-    const data = response.body.features[0].center
-    console.log('Latitude: '+response.body.features[0].center[1] + ', Longitude: ' +response.body.features[0].center[0])
+    if(error) {
+        console.log('Unable to reach the map box sevice !')
+    } else if(response.body.features.length === 0) {
+        console.log('Unable to find any result for the request !')
+    } else {
+        const data = response.body.features[0].center
+        console.log('Latitude: '+response.body.features[0].center[1] + ', Longitude: ' +response.body.features[0].center[0])
+    }
 });
+
+// Handle error for geocoding request
+// Set up an error handler for low-level errors
+// Set up error handler for no matching results
 
