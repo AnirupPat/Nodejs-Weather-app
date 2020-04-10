@@ -291,6 +291,7 @@ const url = 'http://api.weatherstack.com/current?access_key=00fb213314d4f0b73ca9
 //   console.log('body:', body); // Print the HTML for the Google homepage.
 // });
 
+// this below code will no longer be used once the new file forecast.js is referenced
 request({ url: url, json: true }, (error, response) => {
     // if we are passing json = true then we dont need to parse this as below
     // const data = JSON.parse(response.body)
@@ -316,7 +317,7 @@ request({ url: url, json: true }, (error, response) => {
 
 // Print the latitude / longitude for India
 
-// Los%20Angeles
+// this below code will no longer be used once the new file goecode.js is referenced
 const geocodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYW5pcnVwIiwiYSI6ImNrNGw4dTE0YTFvenozbXF4dWNlYmhyeGkifQ.PuThfcK3VVJ_wBFqNjnjyQ&limit=1'
 request({ url: geocodeUrl, json: true }, (error, response) => {
     console.log('--------mapbox.com--------')
@@ -353,4 +354,22 @@ geocode('India', (error, response) => {
         console.log('Location is: '+ response.body.features[0].place_name)
     }
 })
+
+//
+// Goal: Create a reusable function for getting the forecast
+//
+// 1. Setup the "forecast" function in utils/forecast.js
+// 2. Require the function in app.js and call it as shown below
+// 3. The forecast function should have three potential calls to callback:
+//    - Low level error, pass string for error
+//    - Coordinate error, pass string for error
+//    - Success, pass forecast string for data (same format as from before)
+
+const forecast = require('./utils/forecast')
+
+forecast(-75.7088, 44.1545, (error, data) => {
+    console.log('-----forcast callback new data-----')
+    console.log('Error', error)
+    console.log('Data', data)
+  })
 
