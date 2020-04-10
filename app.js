@@ -334,3 +334,23 @@ request({ url: geocodeUrl, json: true }, (error, response) => {
 // Set up an error handler for low-level errors
 // Set up error handler for no matching results
 
+
+// Implementation callback function for geocode
+
+// use encodeURIComponent() whenever we pass something to a url
+
+// We have created a new folder called utils and have moved the 
+// newly created geocode function declaration to over there
+const geocode = require('./utils/geocode')
+geocode('India', (error, response) => {
+    console.log('--------mapbox.com callback--------')
+    if(error) {
+        console.log('Unable to reach the map box sevice !')
+    } else if(response.body.features.length === 0) {
+        console.log('Unable to find any result for the request !')
+    } else {
+        console.log('Latitude: '+response.body.features[0].center[1] + ', Longitude: ' +response.body.features[0].center[0])
+        console.log('Location is: '+ response.body.features[0].place_name)
+    }
+})
+
