@@ -295,8 +295,25 @@ request({ url: url, json: true }, (error, response) => {
     // if we are passing json = true then we dont need to parse this as below
     // const data = JSON.parse(response.body)
     const data = response.body
-    console.log(data)
     console.log('-----lets look at the current property---------')
     console.log(data.current.weather_descriptions[0] +'. It is currently ' +data.current.temperature + ' degrees and feels like ' +data.current.feelslike + ' degress')
+});
+
+// Geocoding 
+// Address -> Lat/Long -> Weather
+
+// Open mapbox.com
+// sign in to it 
+// click on access token to find the free public token as below:
+// pk.eyJ1IjoiYW5pcnVwIiwiYSI6ImNrNGw4dTE0YTFvenozbXF4dWNlYmhyeGkifQ.PuThfcK3VVJ_wBFqNjnjyQ
+
+// Print the latitude / longitude for India
+
+
+const geocodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYW5pcnVwIiwiYSI6ImNrNGw4dTE0YTFvenozbXF4dWNlYmhyeGkifQ.PuThfcK3VVJ_wBFqNjnjyQ&limit=1'
+request({ url: geocodeUrl, json: true }, (error, response) => {
+    console.log('--------mapbox.com--------')
+    const data = response.body.features[0].center
+    console.log('Latitude: '+response.body.features[0].center[1] + ', Longitude: ' +response.body.features[0].center[0])
 });
 
