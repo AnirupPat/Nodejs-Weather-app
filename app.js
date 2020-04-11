@@ -365,5 +365,48 @@ forecast(-75.7088, 44.1545, (error, data) => {
     console.log('-----forcast callback new data-----')
     console.log('Error', error)
     console.log('Data', data)
-  })
+})
 
+  // Callback chaining.. Passing place name and getting the coordinates
+  // And fetching the weather report for the same 
+const geocode2 = require('./utils/geocode')
+geocode2('India', (error, response) => {
+    if(error) {
+        return console.log(error)
+    }
+    console.log('Geocode chaining step1:' +response.longitude)
+
+    forecast(response.latitude, response.longitude, (error, data) => {
+        if(error) {
+            return console.log(error)
+        }
+        console.log('-----forcast callback chaining data-----')
+        console.log('Error', error)
+        console.log('Data', data)
+    })
+})
+
+// Accept location via command line argument 
+// Access command line argument without yargs
+// Use the string value as the input for geocode
+// Only geocode if a location is available 
+
+if(process.argv[2]) {
+    geocode(process.argv[2], (error, response) => {
+        if(error) {
+            return console.log(error)
+        }
+        console.log('Geocode chaining step1:' +response.longitude)
+    
+        forecast(response.latitude, response.longitude, (error, data) => {
+            if(error) {
+                return console.log(error)
+            }
+            console.log('-----forcast callback chaining data-----')
+            console.log('Error', error)
+            console.log('Data', data)
+        })
+    })
+} else {
+    console.log('Provide an address !')
+}

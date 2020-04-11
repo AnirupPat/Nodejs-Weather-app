@@ -8,7 +8,6 @@ const forecast = (latitude, longitude, callback) => {
         // if we are passing json = true then we dont need to parse this as below
         // const data = JSON.parse(response.body)
         const data = response.body
-        console.log('-----lets look at the current property---------')
         if(error) {
             callback('Unable to connect to weather app', undefined)
         } else if(response.body.error) {
