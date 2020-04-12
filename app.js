@@ -410,3 +410,26 @@ if(process.argv[2]) {
 } else {
     console.log('Provide an address !')
 }
+
+// Use destructuring in app.js, forecast.js, geocode.js
+// Use property shorthand in forecast.js and geocode.js
+
+if(process.argv[2]) {
+    geocode(process.argv[2], (error, {latitude, longitude}) => {
+        if(error) {
+            return console.log(error)
+        }
+        console.log('Geocode chaining step1:' +response.longitude)
+    
+        forecast(latitude, longitude, (error, data) => {
+            if(error) {
+                return console.log(error)
+            }
+            console.log('-----forcast callback chaining data-----')
+            console.log('Error', error)
+            console.log('Data', data)
+        })
+    })
+} else {
+    console.log('Provide an address !')
+}
